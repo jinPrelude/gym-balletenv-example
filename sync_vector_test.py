@@ -28,12 +28,11 @@ MAX_STEPS = 200
 NUM_ENVS = 2
 
 
+envs = gym.vector.SyncVectorEnv(
+        [make_env(i, SEED + i, NUM_DANCERS, DANCE_DELAY, MAX_STEPS, True, "test") for i in range(NUM_ENVS)]
+    )
 
-envs = make_env(0, SEED, NUM_DANCERS, DANCE_DELAY, MAX_STEPS, True, "test")()
-for i in range(3):
-    obs = envs.reset()
-    done = False
-    while not done:
-        action = envs.action_space.sample()
-        obs, reward, done, info = envs.step(action)
-    print(info)
+obs = envs.reset()
+for i in range(1000):
+    action = envs.action_space.sample()
+    obs, reward, done, info = envs.step(action)
