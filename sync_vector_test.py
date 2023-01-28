@@ -6,9 +6,9 @@ from wrappers.record_video import RecordVideo
 import gym
 import numpy as np
 
-def make_env(idx, seed, num_dancers, dance_delay, max_steps, capture_video, run_name):
+def make_env(env_id, max_steps, seed, idx, capture_video, run_name):
     def thunk():
-        env = BalletEnvironment(num_dancers=2, dance_delay=16, max_steps=320)
+        env = BalletEnvironment(env_id, max_steps)
         env = gym.wrappers.RecordEpisodeStatistics(env)
         if capture_video:
             if idx == 0:
@@ -29,7 +29,7 @@ NUM_ENVS = 2
 
 
 envs = gym.vector.SyncVectorEnv(
-        [make_env(i, SEED + i, NUM_DANCERS, DANCE_DELAY, MAX_STEPS, True, "test") for i in range(NUM_ENVS)]
+        [make_env("2_delay2", MAX_STEPS, SEED + i, i, True, "test") for i in range(NUM_ENVS)]
     )
 
 obs = envs.reset()
