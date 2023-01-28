@@ -35,6 +35,6 @@ envs = gym.vector.SyncVectorEnv(
     )
 
 obs = envs.reset()
-for i in range(1000):
+for i in range(10000):
     action = envs.action_space.sample()
     obs, reward, done, info = envs.step(action)
