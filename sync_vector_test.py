@@ -2,7 +2,7 @@
 from gym_balletenv.envs import BalletEnvironment
 from wrappers.gray_scale_observation import GrayScaleObservation
 from wrappers.record_video import RecordVideo
-from wrappers.newaxis_observation import NewAxisObservation
+from wrappers.transpose_observation import TransposeObservation
 
 import gym
 import numpy as np
@@ -15,7 +15,7 @@ def make_env(env_id, max_steps, seed, idx, capture_video, run_name):
             if idx == 0:
                 env = RecordVideo(env, f"videos/{run_name}")
         env = GrayScaleObservation(env)
-        env = NewAxisObservation(env)
+        env = TransposeObservation(env)
         env.seed(seed)
         env.action_space.seed(seed)
         env.observation_space.seed(seed)
