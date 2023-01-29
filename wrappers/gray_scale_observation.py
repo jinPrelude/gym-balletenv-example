@@ -23,7 +23,7 @@ class GrayScaleObservation(gym.ObservationWrapper):
         Box(0, 255, (96, 96, 1), uint8)
     """
 
-    def __init__(self, env: gym.Env, keep_dim: bool = False):
+    def __init__(self, env: gym.Env, keep_dim: bool = True):
         """Convert the image observation from RGB to gray scale.
 
         Args:
