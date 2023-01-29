@@ -1,8 +1,8 @@
 
 from gym_balletenv.envs import BalletEnvironment
-from wrappers.gray_scale_observation import GrayScaleObservation
-from wrappers.record_video import RecordVideo
-from wrappers.newaxis_observation import TransposeObservation
+from gym_balletenv.wrappers.gray_scale_observation import GrayScaleObservation
+from gym_balletenv.wrappers.record_video import RecordVideo
+from gym_balletenv.wrappers.transpose_observation import TransposeObservation
 import gym
 import numpy as np
 
