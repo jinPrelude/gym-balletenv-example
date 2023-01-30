@@ -32,7 +32,7 @@ NUM_ENVS = 16
 
 if __name__=="__main__":
     envs = SubprocVecEnv(
-            [make_env("2_delay2", MAX_STEPS, SEED + i, i, True, "test") for i in range(NUM_ENVS)]
+            [make_env("2_delay2", MAX_STEPS, SEED + i, i, True, "test") for i in range(NUM_ENVS)], start_method='fork'
         )
     start = time.time()
     obs = envs.reset()
