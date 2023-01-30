@@ -37,7 +37,7 @@ if __name__=="__main__":
     start = time.time()
     obs = envs.reset()
     for i in range(1000):
-        action = [envs.action_space.sample() for _ in range(NUM_ENVS)]
+        action = envs.action_space.sample()
         obs, reward, done, info = envs.step(action)
     end = time.time()
     print(f"Time for syncvectorenv({NUM_ENVS} envs): {end - start}")
