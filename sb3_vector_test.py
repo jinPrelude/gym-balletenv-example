@@ -1,6 +1,7 @@
 
 from gym_balletenv.envs import BalletEnvironment
 from gym_balletenv.wrappers import GrayScaleObservation, RecordVideo, TransposeObservation
+from sb3_vec_env.subproc_vec_env import SubprocVecEnv
 
 import time
 
@@ -29,9 +30,8 @@ DANCE_DELAY = 2
 MAX_STEPS = 200
 NUM_ENVS = 16
 
-
 if __name__=="__main__":
-    envs = gym.vector.SyncVectorEnv(
+    envs = SubprocVecEnv(
             [make_env("2_delay2", MAX_STEPS, SEED + i, i, True, "test") for i in range(NUM_ENVS)]
         )
     start = time.time()
@@ -40,4 +40,4 @@ if __name__=="__main__":
         action = [envs.action_space.sample() for _ in range(NUM_ENVS)]
         obs, reward, done, info = envs.step(action)
     end = time.time()
-    print(f"Time for syncvectorenv({NUM_ENVS} envs): {end - start}")
+    print(f"Time for subproc({NUM_ENVS} envs): {end - start}")
