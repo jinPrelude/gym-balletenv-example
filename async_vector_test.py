@@ -1,6 +1,9 @@
 
 from gym_balletenv.envs import BalletEnvironment
-from gym_balletenv.wrappers import GrayScaleObservation, RecordVideo, TransposeObservation, OnehotLanguage
+from gym_balletenv.wrappers import GrayScaleObservation, RecordVideo, TransposeObservation
+
+import time
+
 import gym
 import numpy as np
 
@@ -13,7 +16,6 @@ def make_env(env_id, max_steps, idx, capture_video, run_name):
                 env = RecordVideo(env, f"videos/{run_name}")
         env = GrayScaleObservation(env)
         env = TransposeObservation(env)
-        env = OnehotLanguage(env)
         return env
 
     return thunk
@@ -22,15 +24,17 @@ SEED = 0
 NUM_DANCERS = 2
 DANCE_DELAY = 2
 MAX_STEPS = 200
-NUM_ENVS = 2
+NUM_ENVS = 16
 
-
-
-envs = make_env("2_delay2", MAX_STEPS, 0, True, "test")()
-for i in range(3):
-    obs, _ = envs.reset(seed=SEED)
-    done = False
-    while not done:
+# TODO : add seeding
+if __name__=="__main__":
+    envs = gym.vector.AsyncVectorEnv(
+            [make_env("2_delay2", MAX_STEPS, i, True, "test") for i in range(NUM_ENVS)]
+        )
+    start = time.time()
+    obs, infos = envs.reset()
+    for i in range(1000):
         action = envs.action_space.sample()
         obs, reward, done, _, info = envs.step(action)
-    print(info)
+    end = time.time()
+    print(f"Time for syncvectorenv({NUM_ENVS} envs): {end - start}")
