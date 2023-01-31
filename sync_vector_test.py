@@ -24,7 +24,7 @@ SEED = 0
 NUM_DANCERS = 2
 DANCE_DELAY = 2
 MAX_STEPS = 200
-NUM_ENVS = 16
+NUM_ENVS = 192
 
 # TODO : add seeding
 if __name__=="__main__":
