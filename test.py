@@ -4,7 +4,7 @@ from gym_balletenv.wrappers import GrayScaleObservation, RecordVideo, TransposeO
 import gym
 import numpy as np
 
-def make_env(env_id, max_steps, seed, idx, capture_video, run_name):
+def make_env(env_id, max_steps, idx, capture_video, run_name):
     def thunk():
         env = BalletEnvironment(env_id, max_steps)
         env = gym.wrappers.RecordEpisodeStatistics(env)
@@ -14,9 +14,6 @@ def make_env(env_id, max_steps, seed, idx, capture_video, run_name):
         env = GrayScaleObservation(env)
         env = TransposeObservation(env)
         env = OnehotLanguage(env)
-        env.seed(seed)
-        env.action_space.seed(seed)
-        env.observation_space.seed(seed)
         return env
 
     return thunk
@@ -29,11 +26,11 @@ NUM_ENVS = 2
 
 
 
-envs = make_env("2_delay2", MAX_STEPS, SEED, 0, True, "test")()
+envs = make_env("2_delay2", MAX_STEPS, 0, True, "test")()
 for i in range(3):
-    obs = envs.reset()
+    obs, _ = envs.reset(SEED)
     done = False
     while not done:
         action = envs.action_space.sample()
-        obs, reward, done, info = envs.step(action)
+        obs, reward, done, _, info = envs.step(action)
     print(info)
