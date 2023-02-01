@@ -4,7 +4,7 @@ from gym_balletenv.wrappers import GrayScaleObservation, RecordVideo, TransposeO
 
 import time
 
-import gym
+import gymnasium as gym
 import numpy as np
 
 def make_env(env_id, max_steps, idx, capture_video, run_name):
@@ -24,7 +24,7 @@ SEED = 0
 NUM_DANCERS = 2
 DANCE_DELAY = 2
 MAX_STEPS = 200
-NUM_ENVS = 192
+NUM_ENVS = 64
 
 # TODO : add seeding
 if __name__=="__main__":
