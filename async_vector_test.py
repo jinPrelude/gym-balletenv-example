@@ -32,7 +32,7 @@ if __name__=="__main__":
             [make_env("2_delay2", MAX_STEPS, i, True, "test") for i in range(NUM_ENVS)]
         )
     start = time.time()
-    obs, infos = envs.reset()
+    obs, infos = envs.reset(seed=SEED)
     for i in range(1000):
         action = envs.action_space.sample()
         obs, reward, done, _, info = envs.step(action)
