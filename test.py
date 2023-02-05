@@ -1,6 +1,6 @@
 
 from gym_balletenv.envs import BalletEnvironment
-from gym_balletenv.wrappers import GrayScaleObservation, RecordVideo, TransposeObservation, OnehotLanguage
+from gym_balletenv.wrappers import GrayScaleObservation, TransposeObservation, OnehotLanguage
 import gymnasium as gym
 import numpy as np
 
@@ -10,7 +10,7 @@ def make_env(env_id, max_steps, idx, capture_video, run_name):
         env = gym.wrappers.RecordEpisodeStatistics(env)
         if capture_video:
             if idx == 0:
-                env = RecordVideo(env, f"videos/{run_name}")
+                env = gym.wrappers.RecordVideo(env, f"videos/{run_name}")
         env = GrayScaleObservation(env)
         env = TransposeObservation(env)
         env = OnehotLanguage(env)
